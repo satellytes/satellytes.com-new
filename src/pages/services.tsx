@@ -7,6 +7,7 @@ import { Grid, GridItem } from '../components/grid/grid';
 import { graphql, useStaticQuery } from 'gatsby';
 import { Aurora, AuroraType } from '../components/aurora/aurora';
 import { MarkdownAst } from '../components/markdown/markdown-ast';
+import { Trans } from 'gatsby-plugin-react-i18next';
 
 interface ServicesQuery {
   markdownRemark: {
@@ -30,7 +31,9 @@ const ServicesPage: React.FC = () => {
         <SEO title="Leistungen | Satellytes" />
         <Grid>
           <GridItem>
-            <PageTitle>Leistungen</PageTitle>
+            <PageTitle>
+              <Trans i18nKey="page.services.title">Leistungen</Trans>
+            </PageTitle>
           </GridItem>
 
           <GridItem xs={12} md={8}>

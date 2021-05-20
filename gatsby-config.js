@@ -36,6 +36,10 @@ module.exports = {
       'Satellytes ist eine Digital-Agentur, die um große Unternehmen kreist und ihnen bei der Transformation und Optimierung digitaler Services und Interfaces hilft.',
     author: 'Satellytes',
     siteUrl: BASE_URL,
+    languages: {
+      langs: ['en', 'de'],
+      defaultLangKey: 'en',
+    },
   },
   plugins: [
     `gatsby-plugin-sass`,
@@ -131,6 +135,30 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-netlify`,
+    },
+    // {
+    //   resolve: 'gatsby-plugin-i18n',
+    //   options: {
+    //     langKeyDefault: 'en',
+    //     useLangKeyLayout: false,
+    //     prefixDefault: false
+    //   },
+    // },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/locales`,
+        name: `locale`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        localeJsonSourceName: `locale`, // name given to `gatsby-source-filesystem` plugin.
+        languages: [`en`, `de`],
+        defaultLanguage: `de`,
+        siteUrl: BASE_URL,
+      },
     },
   ],
 };

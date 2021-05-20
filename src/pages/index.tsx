@@ -14,6 +14,12 @@ import {
 } from '../components/typography/typography';
 import { HEADER_HEIGHT } from '../components/header/header';
 import { Aurora, AuroraType } from '../components/aurora/aurora';
+import {
+  Link,
+  useI18next,
+  Trans,
+  useTranslation,
+} from 'gatsby-plugin-react-i18next';
 
 interface AllClientsQuery {
   allClientsJson: {
@@ -62,32 +68,27 @@ const IndexPageSubTitle = styled(TextTitle)`
 `;
 
 const IndexPage: React.FC = () => {
-  const data = useStaticQuery<AllClientsQuery>(graphql`
-    query {
-      allClientsJson {
-        nodes {
-          name
-          path
-          start
-        }
-      }
-    }
-  `);
+  const { t } = useTranslation();
 
   return (
     <>
       <Aurora type={AuroraType.BrightBlue} />
       <Layout transparentHeader={true}>
-        <SEO title="Satellytes" />
+        <SEO title={t('index.page.title', 'Satellytes')} />
         <Grid center>
           <GridItem xs={0} md={2} />
           <GridItem xs={12} md={8}>
             <HomePageTitleContainer>
               <div>
-                <IndexPageTitle>Satellytes</IndexPageTitle>
+                <IndexPageTitle>
+                  <Trans i18nKey="index.title">Satellytes</Trans>
+                </IndexPageTitle>
                 <IndexPageSubTitle>
-                  We are pragmatic professionals, creating reliable software for
-                  the web.
+                  <Trans i18nKey="index.page.slogan">
+                    {/* eslint-disable-next-line react/no-unescaped-entities */}
+                    Wir sind pragmatische Profis, die zuverlässige Software
+                    für's Web bauen.
+                  </Trans>
                 </IndexPageSubTitle>
               </div>
             </HomePageTitleContainer>
@@ -121,7 +122,6 @@ const IndexPage: React.FC = () => {
                 Branchen wir tätig sind.
               </Text>
             </HomePageBlockTeaser>
-            <ClientList clients={data.allClientsJson.nodes} />
             <HomePageBlockTeaser
               preTitle="Karriere"
               title="Arbeite mit uns"
@@ -146,3 +146,17 @@ const IndexPage: React.FC = () => {
 };
 
 export default IndexPage;
+
+export const query = graphql`
+  query($language: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+  }
+`;

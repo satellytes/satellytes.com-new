@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { GatsbyLinkProps, Link as GatsbyLink } from 'gatsby';
 import { RightArrowIcon } from '../icons/buttons-icons/right-arrow';
-
+import { Link as I18nLink } from 'gatsby-plugin-react-i18next';
 interface LinkProps extends GatsbyLinkProps<void> {
   className?: string;
 }
@@ -62,7 +62,7 @@ const ExternalLink = styled.a`
   color: inherit;
 `;
 
-const LinkButtonContainer = styled(Link)`
+const LinkButtonContainer = styled(I18nLink)`
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
